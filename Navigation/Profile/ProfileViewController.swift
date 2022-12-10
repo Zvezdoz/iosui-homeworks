@@ -10,32 +10,45 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     lazy var profileHeaderView: ProfileHeaderView = {
+        return ProfileHeaderView()
+    }()
+    
+    lazy var someButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.background.cornerRadius = 0
         
-        return ProfileHeaderView(frame: view.frame)
+        let button = UIButton(configuration: config)
+    
+        button.setTitle("Some button", for: .normal)
+        
+        return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .lightGray
-        
         title = "Profile"
         
         view.addSubview(profileHeaderView)
-
+        view.addSubview(someButton)
+        
+        applyConstraints()
     }
     
-    override func viewWillLayoutSubviews() {
-                
+    func applyConstraints() {
         profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        someButton.translatesAutoresizingMaskIntoConstraints = false
                         
         NSLayoutConstraint.activate([
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            profileHeaderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            profileHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            profileHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+            
+            someButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            someButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            someButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
-    
 }
