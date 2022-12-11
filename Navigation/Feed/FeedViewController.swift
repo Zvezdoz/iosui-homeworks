@@ -119,8 +119,6 @@ class FeedViewController: UIViewController {
             
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
     }
