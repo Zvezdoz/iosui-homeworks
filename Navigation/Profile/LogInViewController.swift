@@ -49,6 +49,8 @@ class LogInViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         
+        button.addTarget(self, action: #selector(openProfileScreen), for: .touchUpInside)
+        
         return button
     }()
 
@@ -58,8 +60,17 @@ class LogInViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     func setupView() {
-        self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
         
         self.view.addSubview(logoView)
@@ -117,6 +128,10 @@ class LogInViewController: UIViewController {
             loginButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
             loginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    @objc func openProfileScreen() {
+        self.navigationController?.pushViewController(ProfileViewController(), animated: true)
     }
 }
 
