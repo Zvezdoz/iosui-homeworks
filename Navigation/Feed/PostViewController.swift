@@ -12,7 +12,6 @@ class PostViewController: UIViewController {
     var post: Post?
     
     lazy var textView: UITextView = {
-        
         let textView = UITextView()
                         
         textView.text = post?.text
@@ -42,9 +41,7 @@ class PostViewController: UIViewController {
         title = post?.title
     }
     
-    
     @objc func openInfo() {
         present(InfoViewController(), animated: true)
     }
-    
 }

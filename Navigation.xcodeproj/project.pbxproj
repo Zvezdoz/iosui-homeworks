@@ -14,6 +14,8 @@
 		9E2D9AC0293C8AB7006A6B0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2D9ABE293C8AB7006A6B0C /* LaunchScreen.storyboard */; };
 		9E5EBF08293CA4F900DAC124 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5EBF07293CA4F900DAC124 /* FeedViewController.swift */; };
 		9E5EBF0C293CA52400DAC124 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5EBF0B293CA52400DAC124 /* ProfileViewController.swift */; };
+		9E60B5702944DD1700450AD8 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60B56F2944DD1700450AD8 /* Post.swift */; };
+		9E60B5722944DE1000450AD8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60B5712944DE1000450AD8 /* Constants.swift */; };
 		9E84BFA1293F0E7100D8A1BD /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84BFA0293F0E7100D8A1BD /* InfoViewController.swift */; };
 		9ED543F6293E731A004FE250 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED543F5293E731A004FE250 /* PostViewController.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +30,8 @@
 		9E2D9AC1293C8AB7006A6B0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E5EBF07293CA4F900DAC124 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		9E5EBF0B293CA52400DAC124 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		9E60B56F2944DD1700450AD8 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		9E60B5712944DE1000450AD8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9E84BFA0293F0E7100D8A1BD /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		9ED543F5293E731A004FE250 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,17 +75,35 @@
 		9E2D9AB2293C8AB6006A6B0C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				9E60B56A2944DC9500450AD8 /* Feed */,
 				9E1F99E02940FF6400C638E6 /* Profile */,
 				9E2D9AB3293C8AB6006A6B0C /* AppDelegate.swift */,
 				9E2D9AB5293C8AB6006A6B0C /* SceneDelegate.swift */,
 				9E2D9ABC293C8AB7006A6B0C /* Assets.xcassets */,
 				9E2D9ABE293C8AB7006A6B0C /* LaunchScreen.storyboard */,
 				9E2D9AC1293C8AB7006A6B0C /* Info.plist */,
-				9E5EBF07293CA4F900DAC124 /* FeedViewController.swift */,
-				9ED543F5293E731A004FE250 /* PostViewController.swift */,
 				9E84BFA0293F0E7100D8A1BD /* InfoViewController.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		9E60B56A2944DC9500450AD8 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				9E60B56D2944DCE900450AD8 /* Structs */,
+				9ED543F5293E731A004FE250 /* PostViewController.swift */,
+				9E5EBF07293CA4F900DAC124 /* FeedViewController.swift */,
+				9E60B5712944DE1000450AD8 /* Constants.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		9E60B56D2944DCE900450AD8 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				9E60B56F2944DD1700450AD8 /* Post.swift */,
+			);
+			path = Structs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,7 +181,9 @@
 				9E5EBF08293CA4F900DAC124 /* FeedViewController.swift in Sources */,
 				9E2D9AB6293C8AB6006A6B0C /* SceneDelegate.swift in Sources */,
 				9E1F99E22940FF9100C638E6 /* ProfileHeaderView.swift in Sources */,
+				9E60B5722944DE1000450AD8 /* Constants.swift in Sources */,
 				9E84BFA1293F0E7100D8A1BD /* InfoViewController.swift in Sources */,
+				9E60B5702944DD1700450AD8 /* Post.swift in Sources */,
 				9ED543F6293E731A004FE250 /* PostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
