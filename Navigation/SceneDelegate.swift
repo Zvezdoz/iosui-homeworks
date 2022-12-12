@@ -22,16 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createTabBar() -> UITabBarController {
-        let tabBarController = UITabBarController()
+        let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithDefaultBackground()
+        tabBarAppearance.backgroundColor = .systemBackground
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
         
+        let tabBarController = UITabBarController()
         tabBarController.viewControllers = [createFeedNC(), createProfileNC()]
-        tabBarController.tabBar.backgroundColor = .white
         
         return tabBarController
     }
     
     func createFeedNC() -> UINavigationController {
-        
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithDefaultBackground()
         UINavigationBar.appearance().standardAppearance = navigationBarAppearance
@@ -40,15 +43,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let nc = UINavigationController(rootViewController: FeedViewController())
         
-        nc.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "list.bullet"), tag: 1)
+        nc.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "house.fill"), tag: 1)
         
         return nc
     }
     
     func createProfileNC() -> UINavigationController {
-        let nc = UINavigationController(rootViewController: ProfileViewController())
+        let nc = UINavigationController(rootViewController: LogInViewController())
         
-        nc.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.crop.circle"), tag: 2)
+        nc.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 2)
         
         return nc
     }
