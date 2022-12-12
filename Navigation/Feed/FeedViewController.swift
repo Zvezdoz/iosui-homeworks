@@ -21,7 +21,7 @@ class FeedViewController: UIViewController {
     }()
     
     lazy var cardViews: [UIView] = {
-        return Constants.posts.enumerated().map { (idx: Int, post: Post) in
+        return FeedConstants.posts.enumerated().map { (idx: Int, post: FeedPost) in
             createCardView(post: post, idx: idx)
         }
     }()
@@ -48,7 +48,7 @@ class FeedViewController: UIViewController {
         return stackView
     }
 
-    func createCardView(post: Post, idx: Int) -> UIView {
+    func createCardView(post: FeedPost, idx: Int) -> UIView {
         let cardView = UIView()
         
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -147,7 +147,7 @@ class FeedViewController: UIViewController {
     
     @objc func openPost(_ sender: UIButton) {
         let postVC = PostViewController()
-        postVC.post = Constants.posts[sender.tag]
+        postVC.post = FeedConstants.posts[sender.tag]
         
         navigationController?.pushViewController(postVC, animated: true)
     }

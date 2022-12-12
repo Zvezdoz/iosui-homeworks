@@ -9,7 +9,7 @@ import UIKit
 
 class PostViewController: UIViewController {
     
-    var post: Post?
+    var post: FeedPost?
     
     lazy var textView: UITextView = {
         let textView = UITextView()
