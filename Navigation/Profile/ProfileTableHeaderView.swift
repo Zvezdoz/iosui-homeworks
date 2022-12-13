@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
-    static let id = "tableHeaderView"
+    static let id = "postTableHeader"
     
     let avatarImageSize: Double = 110
 
@@ -92,15 +92,14 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }
         
     func setupView() {
+        directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
         
-        self.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
-        
-        self.contentView.backgroundColor = .systemGray6
-        self.contentView.addSubview(avatarImageView)
-        self.contentView.addSubview(fullNameLabel)
-        self.contentView.addSubview(statusLabel)
-        self.contentView.addSubview(statusTextField)
-        self.contentView.addSubview(setStatusButton)
+        contentView.backgroundColor = .systemGray6
+        contentView.addSubview(avatarImageView)
+        contentView.addSubview(fullNameLabel)
+        contentView.addSubview(statusLabel)
+        contentView.addSubview(statusTextField)
+        contentView.addSubview(setStatusButton)
                 
         applyConstraints()
     }
