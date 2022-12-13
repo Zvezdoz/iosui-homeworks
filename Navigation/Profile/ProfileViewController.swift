@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    let tableView = UITableView(frame: CGRect(), style: .grouped)
+    
     lazy var profileHeaderView: ProfileHeaderView = {
         return ProfileHeaderView()
     }()
@@ -27,28 +29,42 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .lightGray
         title = "Profile"
+
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.backgroundColor = .white
+        self.tableView.rowHeight = 100
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.sectionHeaderHeight =  240
         
-        view.addSubview(profileHeaderView)
-        view.addSubview(someButton)
+        self.view.addSubview(tableView)
         
         applyConstraints()
     }
     
     func applyConstraints() {
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        someButton.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
                         
         NSLayoutConstraint.activate([
-            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            
-            someButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            someButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
-            someButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
         ])
+    }
+}
+
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return ProfileHeaderView()
     }
 }
