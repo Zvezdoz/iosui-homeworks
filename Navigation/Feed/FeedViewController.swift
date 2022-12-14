@@ -80,6 +80,7 @@ class FeedViewController: UIViewController {
 
         label.text = text
         label.font = .systemFont(ofSize: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }
@@ -94,6 +95,7 @@ class FeedViewController: UIViewController {
         textView.textContainer.lineBreakMode = .byTruncatingTail
         textView.text = text
         textView.isSelectable = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
     }
@@ -103,6 +105,7 @@ class FeedViewController: UIViewController {
         
         button.configuration = .filled()
         button.configuration?.title = "Open"
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }
@@ -124,10 +127,6 @@ class FeedViewController: UIViewController {
     }
     
     func applyCardViewContraints(cardView: UIView, labelView: UIView, textView: UITextView, button: UIButton) {
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
             labelView.topAnchor.constraint(equalTo: cardView.layoutMarginsGuide.topAnchor),
             labelView.leadingAnchor.constraint(equalTo: cardView.layoutMarginsGuide.leadingAnchor),

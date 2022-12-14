@@ -17,7 +17,8 @@ class PostTableViewCell: UITableViewCell {
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textColor = .black
-        
+        label.translatesAutoresizingMaskIntoConstraints = false
+
         return label
     }()
     
@@ -27,6 +28,7 @@ class PostTableViewCell: UITableViewCell {
         view.contentMode = .scaleAspectFit
         view.backgroundColor = .black
         view.sizeToFit()
+        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
@@ -40,6 +42,7 @@ class PostTableViewCell: UITableViewCell {
         view.textContainer.lineFragmentPadding = 0
         view.isScrollEnabled = false
         view.isSelectable = false
+        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
@@ -88,19 +91,12 @@ class PostTableViewCell: UITableViewCell {
         label.text = text
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }
     
-    func applyConstraints() {
-        postTitle.translatesAutoresizingMaskIntoConstraints = false
-        postImage.translatesAutoresizingMaskIntoConstraints = false
-        postText.translatesAutoresizingMaskIntoConstraints = false
-        postLikes.translatesAutoresizingMaskIntoConstraints = false
-        postLikesCount.translatesAutoresizingMaskIntoConstraints = false
-        postViews.translatesAutoresizingMaskIntoConstraints = false
-        postViewsCount.translatesAutoresizingMaskIntoConstraints = false
-        
+    func applyConstraints() {      
         NSLayoutConstraint.activate([
             postTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             postTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),

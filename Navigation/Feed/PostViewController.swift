@@ -15,6 +15,7 @@ class PostViewController: UIViewController {
         let textView = UITextView()
                         
         textView.text = post?.text
+        textView.translatesAutoresizingMaskIntoConstraints = false
                 
         return textView
     }()
@@ -26,19 +27,20 @@ class PostViewController: UIViewController {
         navigationItem.rightBarButtonItem = barButton
         
         view.addSubview(textView)
+        view.backgroundColor = .white
         
-        textView.translatesAutoresizingMaskIntoConstraints = false
+        title = post?.title
         
+        applyConstraints()
+    }
+    
+    func applyConstraints() {
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             textView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             textView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             textView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
         ])
-        
-        view.backgroundColor = .white
-        
-        title = post?.title
     }
     
     @objc func openInfo() {

@@ -16,12 +16,15 @@ class LogInViewController: UIViewController {
         
         view.keyboardDismissMode = .interactive
         view.contentInset = defaultScrollViewInset
+        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
     lazy var logoView: UIImageView = {
         let view = UIImageView(image: UIImage(named: "logo"))
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
@@ -30,7 +33,6 @@ class LogInViewController: UIViewController {
         let textField = createStyledTextField()
         
         textField.placeholder = "Email or phone"
-        textField.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         return textField
     }()
@@ -39,10 +41,34 @@ class LogInViewController: UIViewController {
         let textField = createStyledTextField()
         
         textField.placeholder = "Password"
-        textField.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         textField.isSecureTextEntry = true
         
         return textField
+    }()
+    
+    lazy var textFieldSeparator: UIView = {
+        let view = UIView()
+        
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    lazy var textFieldsStack: UIStackView = {
+        let view = UIStackView()
+        
+        view.addSubview(loginTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(textFieldSeparator)
+        
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderWidth = 0.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
     }()
     
     lazy var loginButton: UIButton = {
@@ -59,6 +85,7 @@ class LogInViewController: UIViewController {
         button.setBackgroundImage(selectedImage, for: .disabled)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(openProfileScreen), for: .touchUpInside)
         
@@ -90,8 +117,7 @@ class LogInViewController: UIViewController {
         
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(logoView)
-        self.scrollView.addSubview(loginTextField)
-        self.scrollView.addSubview(passwordTextField)
+        self.scrollView.addSubview(textFieldsStack)
         self.scrollView.addSubview(loginButton)
         
         applyConstraints()
@@ -100,9 +126,6 @@ class LogInViewController: UIViewController {
     func createStyledTextField() -> UITextField {
         let textField = UITextField()
 
-        textField.layer.borderColor = UIColor.lightGray.cgColor
-        textField.layer.borderWidth = 0.5
-        textField.layer.cornerRadius = 10
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.tintColor = UIColor(named: "TintColor")
@@ -113,17 +136,12 @@ class LogInViewController: UIViewController {
         let spaceView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         textField.leftView = spaceView
         textField.leftViewMode = .always
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
     }
     
     func applyConstraints() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        logoView.translatesAutoresizingMaskIntoConstraints = false
-        loginTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
@@ -135,17 +153,25 @@ class LogInViewController: UIViewController {
             logoView.heightAnchor.constraint(equalToConstant: 100),
             logoView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             
-            loginTextField.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 120),
-            loginTextField.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 16),
-            loginTextField.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -16),
+            textFieldsStack.topAnchor.constraint(equalTo: logoView.bottomAnchor, constant: 120),
+            textFieldsStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            textFieldsStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            textFieldsStack.heightAnchor.constraint(equalToConstant: 100),
+            
+            loginTextField.topAnchor.constraint(equalTo: textFieldsStack.topAnchor),
+            loginTextField.leadingAnchor.constraint(equalTo: textFieldsStack.leadingAnchor),
+            loginTextField.trailingAnchor.constraint(equalTo: textFieldsStack.trailingAnchor),
             loginTextField.heightAnchor.constraint(equalToConstant: 50),
-            loginTextField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            
+            textFieldSeparator.topAnchor.constraint(equalTo: loginTextField.bottomAnchor),
+            textFieldSeparator.leadingAnchor.constraint(equalTo: textFieldsStack.leadingAnchor),
+            textFieldSeparator.trailingAnchor.constraint(equalTo: textFieldsStack.trailingAnchor),
+            textFieldSeparator.heightAnchor.constraint(equalToConstant: 0.5),
             
             passwordTextField.topAnchor.constraint(equalTo: loginTextField.bottomAnchor, constant: -1),
-            passwordTextField.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 16),
-            passwordTextField.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -16),
+            passwordTextField.leadingAnchor.constraint(equalTo: textFieldsStack.leadingAnchor),
+            passwordTextField.trailingAnchor.constraint(equalTo: textFieldsStack.trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
-            passwordTextField.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
 
             loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
             loginButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
