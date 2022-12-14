@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
+    
+    static let id = "postTableHeader"
     
     let avatarImageSize: Double = 110
 
@@ -18,6 +20,7 @@ class ProfileHeaderView: UIView {
         view.clipsToBounds = true
         view.layer.borderWidth = 3
         view.layer.borderColor = UIColor.white.cgColor
+        view.translatesAutoresizingMaskIntoConstraints = false
                 
         return view
     }()
@@ -29,6 +32,7 @@ class ProfileHeaderView: UIView {
         label.font = UIFont.boldSystemFont(ofSize: 18.0)
         label.textColor = .black
         label.sizeToFit()
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -40,6 +44,7 @@ class ProfileHeaderView: UIView {
         label.font = UIFont.systemFont(ofSize: 14.0)
         label.textColor = .darkGray
         label.lineBreakMode = .byTruncatingTail
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -55,6 +60,7 @@ class ProfileHeaderView: UIView {
         textField.layer.borderWidth = 1
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         textField.leftViewMode = .always
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
         textField.addTarget(target, action: #selector(statusTextChanged), for: .editingChanged)
                 
@@ -72,6 +78,7 @@ class ProfileHeaderView: UIView {
         button.layer.cornerRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(target, action: #selector(buttonPressed), for: .touchUpInside)
         
@@ -80,9 +87,10 @@ class ProfileHeaderView: UIView {
     
     private var statusText = ""
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setupView()
+        print(contentView.frame)
     }
     
     required init?(coder: NSCoder) {
@@ -90,47 +98,42 @@ class ProfileHeaderView: UIView {
     }
         
     func setupView() {
-        self.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
-        
-        self.addSubview(avatarImageView)
-        self.addSubview(fullNameLabel)
-        self.addSubview(statusLabel)
-        self.addSubview(statusTextField)
-        self.addSubview(setStatusButton)
+        contentView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+        contentView.backgroundColor = .systemGray6
+        contentView.addSubview(avatarImageView)
+        contentView.addSubview(fullNameLabel)
+        contentView.addSubview(statusLabel)
+        contentView.addSubview(statusTextField)
+        contentView.addSubview(setStatusButton)
                 
         applyConstraints()
     }
     
     func applyConstraints() {
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        fullNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusTextField.translatesAutoresizingMaskIntoConstraints = false
-        setStatusButton.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: self.layoutMarginsGuide.leadingAnchor),
+            avatarImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            avatarImageView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             avatarImageView.heightAnchor.constraint(equalToConstant: avatarImageSize),
             avatarImageView.widthAnchor.constraint(equalToConstant: avatarImageSize),
-            
-            fullNameLabel.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 27),
+
+            fullNameLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 27),
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 24),
-            
+
             statusLabel.heightAnchor.constraint(equalToConstant: 16),
             statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
-            statusLabel.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor),
+            statusLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             statusLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 24),
-            
+
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
             statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
             statusTextField.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
-            statusTextField.trailingAnchor.constraint(equalTo: self.layoutMarginsGuide.trailingAnchor),
+            statusTextField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
 
-            setStatusButton.widthAnchor.constraint(equalTo: self.layoutMarginsGuide.widthAnchor),
+            setStatusButton.widthAnchor.constraint(equalTo: contentView.layoutMarginsGuide.widthAnchor),
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16)
+            setStatusButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
+            setStatusButton.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
     
