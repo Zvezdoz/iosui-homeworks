@@ -16,9 +16,12 @@ class PhotosTableViewCell: UITableViewCell {
     lazy var photoViews: [UIImageView] = {
         return ProfileConstants.photos[...3].map { photo in
             let imageView = UIImageView(image: photo)
+            let myconstraint = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+            
+            myconstraint.priority = UILayoutPriority(999)
+            myconstraint.isActive = true
             
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.layer.cornerRadius = 6

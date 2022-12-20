@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
         view.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.id)
         view.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.id)
         view.rowHeight = UITableView.automaticDimension
-        view.estimatedRowHeight = 300
+        view.estimatedRowHeight = 150
         view.sectionHeaderHeight = UITableView.automaticDimension
         view.estimatedSectionHeaderHeight = 300
         view.sectionFooterHeight = 0
@@ -60,12 +60,6 @@ class ProfileViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
         ])
     }
-    
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        super.viewWillTransition(to: size, with: coordinator)
-//        print("parent")
-//        tableView.updateConstraints()
-//    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

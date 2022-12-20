@@ -9,22 +9,25 @@ import UIKit
 
 class PhotosViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    let photosSpace = 8
+    let portraitPhotosCount = 3
+    let landscapePhotosCount = 5
+    
+    let layout = UICollectionViewFlowLayout()
+    
     lazy var photosGrid: UICollectionView = {
-        let space = 8
-        let itemSize = (Int(view.frame.size.width) - space * 4) / 3
-        let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = CGFloat(space)
-        layout.minimumInteritemSpacing =  CGFloat(space)
-        layout.itemSize = CGSize(width: CGFloat(itemSize), height: CGFloat(itemSize))
+        layout.minimumLineSpacing = CGFloat(photosSpace)
+        layout.minimumInteritemSpacing =  CGFloat(photosSpace)
+//        layout.itemSize = CGSize(width: CGFloat(itemSize), height: CGFloat(itemSize))
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.id)
         view.dataSource = self
         view.delegate = self
-        view.contentInset = UIEdgeInsets(top: CGFloat(space), left: CGFloat(space), bottom: CGFloat(space), right: CGFloat(space))
+        view.contentInset = UIEdgeInsets(top: CGFloat(photosSpace), left: CGFloat(photosSpace), bottom: CGFloat(photosSpace), right: CGFloat(photosSpace))
 
         return view
     }()
@@ -37,6 +40,7 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     func setupView() {
         title = "Photo Gallery"
         
+        view.backgroundColor = .white
         view.addSubview(photosGrid)
         
         applyConstraints()
@@ -53,13 +57,20 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
                 
         return cell
     }
+    
+    override func viewWillLayoutSubviews() {
+        let screenWidth = Int(view.safeAreaLayoutGuide.layoutFrame.size.width)
+        let photosCount = UIDevice.current.orientation.isPortrait ? portraitPhotosCount : landscapePhotosCount
+        let itemSize = (screenWidth - photosSpace * (photosCount + 1)) / photosCount
+        layout.itemSize = CGSize(width: CGFloat(itemSize), height: CGFloat(itemSize))
+    }
         
     func applyConstraints() {
         NSLayoutConstraint.activate([
             photosGrid.topAnchor.constraint(equalTo: view.topAnchor),
             photosGrid.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            photosGrid.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            photosGrid.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            photosGrid.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            photosGrid.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 }
