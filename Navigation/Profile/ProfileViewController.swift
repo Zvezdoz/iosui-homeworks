@@ -13,10 +13,12 @@ class ProfileViewController: UIViewController {
         let view = UITableView(frame: CGRect(), style: .grouped)
         
         view.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.id)
+        view.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.id)
         view.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.id)
-        view.estimatedRowHeight = 500
+        view.rowHeight = UITableView.automaticDimension
+        view.estimatedRowHeight = 300
         view.sectionHeaderHeight = UITableView.automaticDimension
-        view.estimatedSectionHeaderHeight = 240
+        view.estimatedSectionHeaderHeight = 300
         view.sectionFooterHeight = 0
         view.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNonzeroMagnitude))
         view.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
@@ -26,8 +28,6 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
-    lazy var profileHeaderView: ProfileHeaderView = ProfileHeaderView()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -51,14 +51,37 @@ class ProfileViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
         ])
     }
+    
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        print("parent")
+//        tableView.updateConstraints()
+//    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (section == 0) {
+            return 1
+        }
+        
         return ProfileConstants.posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.section == 0) {
+            return tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.id, for: indexPath) as! PhotosTableViewCell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.id, for: indexPath) as! PostTableViewCell
         cell.setContent(post: ProfileConstants.posts[indexPath.row])
         
@@ -66,6 +89,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.id) as! ProfileHeaderView
+        if (section == 0) {
+            return tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.id) as! ProfileHeaderView
+        }
+        
+        let view = UITableViewHeaderFooterView()
+        view.contentView.backgroundColor = .systemGray6
+        
+        return view
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ProfileConstants {
     static let posts = [
@@ -42,4 +43,8 @@ struct ProfileConstants {
             views: 5118
         )
     ]
+    
+    static let photos = Array(repeating: UIImage(named: "1"), count: 8).enumerated().map { (index, _) in
+        return UIImage(named: String(index + 1))
+    }
 }
