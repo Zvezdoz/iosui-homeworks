@@ -33,9 +33,18 @@ class ProfileViewController: UIViewController {
         setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     func setupView() {
-        title = "Profile"
-        
+        tableView.backgroundColor = .systemGray6
         tableView.dataSource = self
         tableView.delegate = self
         view.addSubview(tableView)
@@ -97,5 +106,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         view.contentView.backgroundColor = .systemGray6
         
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.section == 0) {
+            navigationController?.pushViewController(PhotosViewController(), animated: true)
+        }
     }
 }

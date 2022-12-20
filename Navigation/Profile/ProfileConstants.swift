@@ -44,7 +44,7 @@ struct ProfileConstants {
         )
     ]
     
-    static let photos = Array(repeating: UIImage(named: "1"), count: 8).enumerated().map { (index, _) in
+    static let photos = Array(repeating: UIImage(named: "1"), count: 20).enumerated().map { (index, _) in
         return UIImage(named: String(index + 1))
     }
 }
