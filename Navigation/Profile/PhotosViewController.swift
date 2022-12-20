@@ -21,7 +21,6 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = CGFloat(photosSpace)
         layout.minimumInteritemSpacing =  CGFloat(photosSpace)
-//        layout.itemSize = CGSize(width: CGFloat(itemSize), height: CGFloat(itemSize))
         
         view.translatesAutoresizingMaskIntoConstraints = false
         view.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.id)
