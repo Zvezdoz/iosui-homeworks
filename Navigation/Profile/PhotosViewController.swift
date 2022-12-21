@@ -58,8 +58,9 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     override func viewWillLayoutSubviews() {
+        let isPortrait = UIScreen.main.bounds.width < UIScreen.main.bounds.height
         let screenWidth = Int(view.safeAreaLayoutGuide.layoutFrame.size.width)
-        let photosCount = UIDevice.current.orientation.isPortrait ? portraitPhotosCount : landscapePhotosCount
+        let photosCount = isPortrait ? portraitPhotosCount : landscapePhotosCount
         let itemSize = (screenWidth - photosSpace * (photosCount + 1)) / photosCount
         layout.itemSize = CGSize(width: CGFloat(itemSize), height: CGFloat(itemSize))
     }
