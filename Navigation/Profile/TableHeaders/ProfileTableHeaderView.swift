@@ -90,7 +90,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setupView()
-        print(contentView.frame)
     }
     
     required init?(coder: NSCoder) {
