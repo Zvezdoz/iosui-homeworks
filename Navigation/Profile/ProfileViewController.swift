@@ -8,6 +8,10 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+        
+    var avatarAnchorView = UIImageView()
+    
+    var animator: AvatarAnimationController?;
     
     let tableView: UITableView = {
         let view = UITableView(frame: CGRect(), style: .grouped)
@@ -93,7 +97,20 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if (section == 0) {
-            return tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.id) as! ProfileHeaderView
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.id) as! ProfileHeaderView
+            
+            self.avatarAnchorView = header.avatarImageView
+
+            header.avatarTappedHandler =  {
+                let vc = FullScreenAvatarViewController(anchorView: header.avatarImageView)
+                
+                vc.transitioningDelegate = self
+                vc.modalPresentationStyle = .custom
+                
+                self.present(vc, animated: true)
+            }
+            
+            return header
         }
         
         let view = UITableViewHeaderFooterView()
@@ -106,5 +123,18 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         if (indexPath.section == 0) {
             navigationController?.pushViewController(PhotosViewController(), animated: true)
         }
+    }
+}
+
+extension ProfileViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        animator = AvatarAnimationController(anchorView: self.avatarAnchorView)
+        
+        return animator
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        return animator
     }
 }

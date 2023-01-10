@@ -12,16 +12,22 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     static let id = "postTableHeader"
     
     let avatarImageSize: Double = 110
+    
+    lazy var imageWidthContraint = avatarImageView.heightAnchor.constraint(equalToConstant: avatarImageSize)
+    lazy var imageHeightContraint = avatarImageView.heightAnchor.constraint(equalToConstant: avatarImageSize)
 
     lazy var avatarImageView: UIImageView = {
         let view = UIImageView(image: UIImage(named: "avatar"))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(avatarTapped))
         
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(tapGestureRecognizer)
         view.layer.cornerRadius = CGFloat(avatarImageSize / 2)
         view.clipsToBounds = true
         view.layer.borderWidth = 3
         view.layer.borderColor = UIColor.white.cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
-                
+                        
         return view
     }()
     
@@ -85,6 +91,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return button
     }()
     
+    var avatarTappedHandler = {}
+    
     private var statusText = ""
     
     override init(reuseIdentifier: String?) {
@@ -143,5 +151,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     @objc func statusTextChanged(_ textField: UITextField) {
         guard let text = textField.text else { return }
         statusText = text
+    }
+    
+    @objc func avatarTapped() {
+        avatarTappedHandler()
     }
 }
